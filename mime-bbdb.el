@@ -94,30 +94,6 @@ For framepop users: If empty, `framepop-banish' is used instead.")
 	    (symbol-function 'mime-bbdb/extract-address-components))
       ))
 
-
-;;; @ bbdb-extract-field-value
-;;;
-
-(or (fboundp 'tm:bbdb-extract-field-value)
-    (progn
-      ;; (require 'bbdb-hooks) ; not provided.
-      ;; (or (fboundp 'bbdb-extract-field-value) ; defined as autoload
-
-      ;; almost BBDB functions are autoloaded.
-      ;; (or (fboundp 'bbdb-header-start)
-      (or (and (fboundp 'bbdb-extract-field-value)
-	       (not (eq 'autoload (car-safe (symbol-function
-					     'bbdb-extract-field-value)))))
-	  (load "bbdb-hooks"))
-      (fset 'tm:bbdb-extract-field-value
-	    (symbol-function 'bbdb-extract-field-value))
-      (defun bbdb-extract-field-value (field)
-        (let ((value (tm:bbdb-extract-field-value field)))
-          (and value
-               (eword-decode-string value))))
-      ))
-
-
 ;;; @ full-name canonicalization methods
 ;;;
 
